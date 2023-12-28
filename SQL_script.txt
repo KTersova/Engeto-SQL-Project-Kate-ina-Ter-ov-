@@ -1,3 +1,5 @@
+-- DISCORD: kacka.t, ale poprosím o upřednostnění komunikace přes e-mail (tersova.katerina@email.cz)
+
 -- Před tvorbou finální primární tabulky si pro tento účel vytvořím dvě separátní tabulky pro mzdy a ceny 
 -- potravin v jednotlivých letech. Pro účely zodpovězení otázek mohu totiž spoustu informací úplně zanedbat
 -- a spíše než ceny potravin v jednotlivých regionech mě budou zajímat průměrné ceny v celé ČR ve zvoleném 
