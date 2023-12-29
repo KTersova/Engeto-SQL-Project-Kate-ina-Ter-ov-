@@ -1,5 +1,4 @@
--- PRO SELECT NÍŽE JE JIŽ TŘEBA MÍT VYTVOŘENY NĚKTERÉ TABULKY:
--- 1) 
+-- PRO SELECT NÍŽE JE JIŽ TŘEBA MÍT VYTVOŘENU PRIMÁRNÍ TRABULKU t_katerina_tersova_project_sql_primary_final - viz. Tables / SQL_script_complete
 
 SELECT 
 	t_rok_2006.Název_odvětví,
@@ -23,14 +22,14 @@ FROM(
 		Název_odvětví,
 		Průměrná_mzda AS Průměrná_mzda_2006,
 		Rok
-	FROM t_katerina_tersova_project_sql_primary_final3
+	FROM t_katerina_tersova_project_sql_primary_final
 	WHERE Rok = '2006') AS t_rok_2006
 JOIN( 
 	SELECT DISTINCT 
 		Název_odvětví,
 		Průměrná_mzda AS Průměrná_mzda_2012,
 		Rok
-	FROM t_katerina_tersova_project_sql_primary_final3 
+	FROM t_katerina_tersova_project_sql_primary_final
 	WHERE Rok = '2012') AS t_rok_2012
 ON t_rok_2006.Název_odvětví = t_rok_2012.Název_odvětví
 JOIN( 
@@ -38,7 +37,7 @@ JOIN(
 		Název_odvětví,
 		Průměrná_mzda AS Průměrná_mzda_2018,
 		Rok
-	FROM t_katerina_tersova_project_sql_primary_final3 
+	FROM t_katerina_tersova_project_sql_primary_final
 	WHERE Rok = '2018') AS t_rok_2018
 ON t_rok_2012.Název_odvětví = t_rok_2018.Název_odvětví
 GROUP BY 
