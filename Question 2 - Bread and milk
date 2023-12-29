@@ -1,3 +1,6 @@
+-- OTÁZKA 2: Kolik je možné si koupit litrů mléka a koupit chleba za první a koupit srovnatelné období v dostupných 
+-- datech cen a mezd?
+
 -- PRO SELECT NÍŽE JE JIŽ TŘEBA MÍT VYTVOŘENU PRIMÁRNÍ TRABULKU t_katerina_tersova_project_sql_primary_final - viz. Tables / SQL_script_complete
 
 SELECT Produkt,
@@ -12,3 +15,6 @@ GROUP BY
 	Produkt,
 	Rok
 ;
+
+-- ODPOVĚĎ: Vidíme, že zakoupitelné množství se v případě obou sledovaných produktů zvýšílo. V případě kmínového chleba o 57 
+-- bochníků, u mléka potom o 205 litrů.
