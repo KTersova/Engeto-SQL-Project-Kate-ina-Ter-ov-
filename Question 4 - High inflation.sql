@@ -1,6 +1,9 @@
 -- OTÁZKA 4: Existuje rok, ve kterém byl meziroční nárůst cen potravin výrazně vyšší než růst mezd (větší než 10 %)?
 
--- PRO SELECT NÍŽE JE JIŽ TŘEBA MÍT VYTVOŘENU POMOCNOU TRABULKU t_katerina_tersova_rocni_zmeny_mezd A PRIMÁRNÍ TABULKU t_katerina_tersova_project_sql_primary_final - viz. Tables / SQL_script_complete
+-- PRO SELECT NÍŽE JE JIŽ TŘEBA MÍT VYTVOŘENU POMOCNÉ TABULKY:
+-- t_katerina_tersova_rocni_zmeny_mezd 
+-- t_katerina_tersova_rocni_zmeny_cen
+-- A PRIMÁRNÍ TABULKU t_katerina_tersova_project_sql_primary_final - viz. Tables / SQL_script_complete
 
 SELECT 
 	ceny.Rok, 
