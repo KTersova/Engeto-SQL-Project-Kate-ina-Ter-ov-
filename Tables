@@ -27,7 +27,7 @@ CREATE OR REPLACE TABLE t_katerina_tersova_wages AS
 
 -- A NYNÍ SPOJENÍM TĚCHTO DVOU POMOCNÝCH TABULEK VYTVOŘÍM FINÁLNÍ 'PRIMARY TABLE'
 
-CREATE OR REPLACE TABLE t_katerina_tersova_project_sql_primary_final3 AS
+CREATE OR REPLACE TABLE t_katerina_tersova_project_sql_primary_final AS
 	SELECT
 		tktp.*,
 		tktw.Název_odvětví,
@@ -49,8 +49,8 @@ SELECT
 	ROUND(tktf.Cena,2) AS Cena,
 	ROUND(tktf2.Cena,2) AS Cena_v_předchozím_roce,
 	ROUND(((tktf.Cena / tktf2.Cena) * 100)-100, 1) AS Roční_procentuální_změna
-FROM t_katerina_tersova_project_sql_primary_final3 AS tktf 
-JOIN t_katerina_tersova_project_sql_primary_final3 AS tktf2 ON tktf.Rok = tktf2.Rok + 1
+FROM t_katerina_tersova_project_sql_primary_final AS tktf 
+JOIN t_katerina_tersova_project_sql_primary_final AS tktf2 ON tktf.Rok = tktf2.Rok + 1
 WHERE tktf.Produkt = tktf2.Produkt
 HAVING tktf.Produkt NOT LIKE 'Jakostní víno bílé'
 ORDER BY tktf.Rok
@@ -67,7 +67,7 @@ SELECT
 		OVER (PARTITION BY Kód_odvětví ORDER BY Rok) AS Mzda_v_předchozím_roce,
 	ROUND((Průměrná_mzda / LAG(Průměrná_mzda)
 		OVER (PARTITION BY Kód_odvětví ORDER BY Rok) * 100)-100, 1) AS Roční_procentuální_změna
-FROM t_katerina_tersova_project_sql_primary_final3 AS tktf
+FROM t_katerina_tersova_project_sql_primary_final AS tktf
 GROUP BY Rok, Kód_odvětví
 ORDER BY Rok, Název_odvětví
 ;
