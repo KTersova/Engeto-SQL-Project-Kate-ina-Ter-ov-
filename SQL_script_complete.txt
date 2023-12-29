@@ -45,7 +45,7 @@ FROM t_katerina_tersova_wages
 
 -- A nyní spojením těchto dvou pomocných tabulek vytvořím finální 'primary table':
 
-CREATE OR REPLACE TABLE t_katerina_tersova_project_sql_primary_final3 AS
+CREATE OR REPLACE TABLE t_katerina_tersova_project_sql_primary_final AS
 	SELECT
 		tktp.*,
 		tktw.Název_odvětví,
@@ -60,7 +60,7 @@ CREATE OR REPLACE TABLE t_katerina_tersova_project_sql_primary_final3 AS
 -- A opět si tabulku zobrazím:
 
 SELECT *
-FROM t_katerina_tersova_project_sql_primary_final3
+FROM t_katerina_tersova_project_sql_primary_final
 ;
 
 -- OTÁZKA 1: Rostou v průběhu let mzdy ve všech odvětvích, nebo v některých klesají?
@@ -90,14 +90,14 @@ FROM(
 		Název_odvětví,
 		Průměrná_mzda AS Průměrná_mzda_2006,
 		Rok
-	FROM t_katerina_tersova_project_sql_primary_final3
+	FROM t_katerina_tersova_project_sql_primary_final
 	WHERE Rok = '2006') AS t_rok_2006
 JOIN( 
 	SELECT DISTINCT 
 		Název_odvětví,
 		Průměrná_mzda AS Průměrná_mzda_2012,
 		Rok
-	FROM t_katerina_tersova_project_sql_primary_final3 
+	FROM t_katerina_tersova_project_sql_primary_final
 	WHERE Rok = '2012') AS t_rok_2012
 ON t_rok_2006.Název_odvětví = t_rok_2012.Název_odvětví
 JOIN( 
@@ -105,7 +105,7 @@ JOIN(
 		Název_odvětví,
 		Průměrná_mzda AS Průměrná_mzda_2018,
 		Rok
-	FROM t_katerina_tersova_project_sql_primary_final3 
+	FROM t_katerina_tersova_project_sql_primary_final
 	WHERE Rok = '2018') AS t_rok_2018
 ON t_rok_2012.Název_odvětví = t_rok_2018.Název_odvětví
 GROUP BY 
@@ -123,7 +123,7 @@ SELECT Produkt,
 	   ROUND(AVG(Průměrná_mzda), 2) AS Průměrná_mzda,
 	   ROUND(AVG(Cena),2) AS Cena,
        ROUND(AVG(Průměrná_mzda)/AVG(Cena),0) AS Zakoupitelné_množství
-FROM t_katerina_tersova_project_sql_primary_final3
+FROM t_katerina_tersova_project_sql_primary_final
 WHERE Produkt IN ('Chléb konzumní kmínový','Mléko polotučné pasterované') 
 	  AND Rok IN ('2006','2018')
 GROUP BY 
@@ -141,7 +141,7 @@ GROUP BY
 SELECT 
 	Produkt, 
 	COUNT(Rok) AS 'Počet záznamů'
-FROM t_katerina_tersova_project_sql_primary_final3
+FROM t_katerina_tersova_project_sql_primary_final
 GROUP BY Produkt
 ;
 
@@ -155,8 +155,8 @@ SELECT
 	ROUND(tktf.Cena,2) AS Cena,
 	ROUND(tktf2.Cena,2) AS Cena_v_předchozím_roce,
 	ROUND(((tktf.Cena / tktf2.Cena) * 100)-100, 1) AS Roční_procentuální_změna
-FROM t_katerina_tersova_project_sql_primary_final3 AS tktf 
-JOIN t_katerina_tersova_project_sql_primary_final3 AS tktf2 ON tktf.Rok = tktf2.Rok + 1
+FROM t_katerina_tersova_project_sql_primary_final AS tktf 
+JOIN t_katerina_tersova_project_sql_primary_final AS tktf2 ON tktf.Rok = tktf2.Rok + 1
 WHERE tktf.Produkt = tktf2.Produkt
 HAVING tktf.Produkt NOT LIKE 'Jakostní víno bílé'
 ORDER BY tktf.Rok
@@ -194,7 +194,7 @@ SELECT
 		OVER (PARTITION BY Kód_odvětví ORDER BY Rok) AS Mzda_v_předchozím_roce,
 	ROUND((Průměrná_mzda / LAG(Průměrná_mzda)
 		OVER (PARTITION BY Kód_odvětví ORDER BY Rok) * 100)-100, 1) AS Roční_procentuální_změna
-FROM t_katerina_tersova_project_sql_primary_final3 AS tktf
+FROM t_katerina_tersova_project_sql_primary_final AS tktf
 GROUP BY Rok, Kód_odvětví
 ORDER BY Rok, Název_odvětví
 ;
