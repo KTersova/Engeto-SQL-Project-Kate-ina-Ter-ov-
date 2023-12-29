@@ -1,4 +1,9 @@
+-- OTÁZKA 1: Rostou v průběhu let mzdy ve všech odvětvích, nebo v některých klesají?
+
 -- PRO SELECT NÍŽE JE JIŽ TŘEBA MÍT VYTVOŘENU PRIMÁRNÍ TRABULKU t_katerina_tersova_project_sql_primary_final - viz. Tables / SQL_script_complete
+
+-- Pro zodpovězení otázky máme k dispozici data z let 2006-2018. Rozhodla jsem se tedy porovnat data na počátku, 
+-- vprostředku, a na konci tohoto období (roky 2006, 2012 a 2018).
 
 SELECT 
 	t_rok_2006.Název_odvětví,
@@ -44,3 +49,5 @@ GROUP BY
 	t_rok_2006.Rok,
 	t_rok_2006.Název_odvětví;
 ;
+
+-- ODPOVĚĎ: Jak vidíme, změna ve všech odvětvích ve odvětvích sledovaných časových úsecích je kladná, tedy mzdy vždy rostly. 
