@@ -10,7 +10,10 @@
 SELECT
     hdp.Rok,
     hdp.Země,
-    LAG(hdp.HDP) OVER (PARTITION BY hdp.Země ORDER BY hdp.Rok) AS Predchozi_rok_HDP,
+--  hdp.HDP, 
+--  LAG(hdp.HDP) OVER (PARTITION BY hdp.Země ORDER BY hdp.Rok) AS Predchozi_rok_HDP,
+-- Tyto dva řádky použít, pokud bychom chtěli vidět i data pro HDP a HDP v předcházejícím roce, z nichž je vypočten procentuální meziroční rozdíl. Pro účely
+-- zodpovězení výzkumné otázky to však není nutné
     ROUND((hdp.HDP - LAG(hdp.HDP) 
     	OVER (PARTITION BY hdp.Země ORDER BY hdp.Rok)) / LAG(hdp.HDP) 
     	OVER (PARTITION BY hdp.Země ORDER BY hdp.Rok) * 100, 2) 
