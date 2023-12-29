@@ -17,6 +17,7 @@ CREATE OR REPLACE TABLE t_katerina_tersova_prices AS
 	WHERE cp.region_code IS NULL
 	GROUP BY year(cp.date_from), cpc.name
 ;
+
 -- Nyní si tuto tabulku pro kontrolu zobrazím
 
 SELECT *
@@ -271,7 +272,8 @@ WHERE
 GROUP BY
     hdp.Rok, hdp.Země, hdp.HDP
 ORDER BY
-    hdp.Rok;
+    hdp.Rok
+;
     
 -- ODPOVĚĎ: Jak vidíme, meziroční změny HDP se v nadcházejícím roce vždy projevily na růstu mezd. V případě propadu 
 -- HDP v následujícím roce mzdy rostly oproti předcházejícím letům pomaleji. Naopak v případě rychle rostoucího HDP 
