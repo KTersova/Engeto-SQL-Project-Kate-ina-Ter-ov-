@@ -10,25 +10,24 @@
 SELECT
     hdp.Rok,
     hdp.Země,
-    -- LAG(hdp.HDP) OVER (PARTITION BY hdp.Země ORDER BY hdp.Rok) AS Predchozi_rok_HDP,
+    LAG(hdp.HDP) OVER (PARTITION BY hdp.Země ORDER BY hdp.Rok) AS Predchozi_rok_HDP,
     ROUND((hdp.HDP - LAG(hdp.HDP) 
     	OVER (PARTITION BY hdp.Země ORDER BY hdp.Rok)) / LAG(hdp.HDP) 
     	OVER (PARTITION BY hdp.Země ORDER BY hdp.Rok) * 100, 2) 
     		AS Mezirocni_rozdil_HDP,
     mzdy.Roční_procentuální_změna AS Meziroční_procentuální_změna_mezd,
     ROUND(AVG(ceny.Roční_procentuální_změna), 2) AS Meziroční_procentuální_změna_cen
-FROM
-    t_katerina_tersova_project_sql_secondary_final AS hdp
-JOIN
-    t_katerina_tersova_rocni_zmeny_mezd mzdy ON hdp.Rok = mzdy.Rok
-JOIN
-    t_katerina_tersova_rocni_zmeny_cen ceny ON hdp.Rok = ceny.Rok
-WHERE
-    hdp.Země = 'Czech Republic'
-GROUP BY
-    hdp.Rok, hdp.Země, hdp.HDP
-ORDER BY
-    hdp.Rok
+FROM t_katerina_tersova_project_sql_secondary_final AS hdp
+JOIN t_katerina_tersova_rocni_zmeny_mezd mzdy 
+    ON hdp.Rok = mzdy.Rok
+JOIN t_katerina_tersova_rocni_zmeny_cen ceny 
+    ON hdp.Rok = ceny.Rok
+WHERE hdp.Země = 'Czech Republic'
+GROUP BY 
+    hdp.Rok, 
+    hdp.Země, 
+    hdp.HDP
+ORDER BY hdp.Rok
 ;
     
 -- ODPOVĚĎ: Jak vidíme, meziroční změny HDP se v nadcházejícím roce vždy projevily na růstu mezd. V případě propadu 
